@@ -28,16 +28,17 @@ def sys_info():
     print("Текущая директория:", os.getcwd())
     print("Текущая пользователь:", os.getlogin())
 
-def delet_dupli():
+def delet_dupli(dir_name):
     file_list = os.listdir(dir_name)
-    # i = 0
-    # while i < len(file_list):
+    doubl_count = 0
     for f in file_list:
         fullname = os.path.join(dir_name, f)
         if fullname.endswith('.dupl'):
             os.remove(fullname)
-        # i += 1
-        return True
+            if not os.path.exists(fullname):
+                doubl_count += 1
+                print("Файл", fullname, "был успешно удален")
+    return doubl_count
 
 
 print("Great Python Program!")
@@ -82,7 +83,8 @@ while n != 'Q':
         elif choice == "6":
             print("Удаление дубликотав в директории")
             dir_name = input("Укажити имя директории:")
-            delet_dupli()
+            count = delet_dupli(dir_name)
+            print("--Удаление файлов:", count)
     elif n == "N":
         print("До свидания!")
         break
